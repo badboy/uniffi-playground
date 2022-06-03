@@ -34,8 +34,6 @@ commands:
           environment:
             RUSTDOCFLAGS: -Dwarnings -Arustdoc::private-intra-doc-links
 
-orbs:
-  gh-pages: sugarshin/gh-pages@0.0.6
 jobs:
   Check Rust formatting:
     docker:
@@ -107,20 +105,6 @@ jobs:
       # * trybuild_ui_tests - error message had a comma inserted! Can probably
       #   be re-enabled after the next rust version bump.
       - run: cargo test -- --skip trybuild_ui_tests
-  Deploy website:
-    docker:
-      - image: rfkelly/uniffi-ci:latest
-    resource_class: small
-    steps:
-      - checkout
-      - prepare-rust-target-version
-      - build-api-docs
-      - run: cp -r ./target/doc ./docs/manual/src/internals/api
-      - install-mdbook
-      - run: mdbook build docs/manual
-      - gh-pages/deploy:
-          build-dir: docs/manual/book
-          ssh-fingerprints: "9d:06:af:45:32:f9:71:b7:57:00:81:7f:70:6b:d1:49"
 
 workflows:
   version: 2
@@ -137,9 +121,3 @@ workflows:
     jobs:
       - Rust and Foreign Language tests
       - Rust and Foreign Language tests - min supported rust
-  deploy-website:
-    jobs:
-      - Deploy website:
-          filters:
-            branches:
-              only: main
