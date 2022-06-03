@@ -3,10 +3,6 @@ queue_rules:
     conditions:
       # Conditions to get out of the queue (= merged)
       - "check-success=ci/circleci: Check Rust formatting"
-      - "check-success=ci/circleci: Lint Rust Docs"
-      - "check-success=ci/circleci: Lint Rust with clippy"
-      - "check-success=ci/circleci: Rust and Foreign Language tests"
-      - "check-success=ci/circleci: Rust and Foreign Language tests - min supported rust"
       - "#check-pending=0"
       - "#check-stale=0"
       - "#check-failure=0"
@@ -27,10 +23,6 @@ pull_request_rules:
       #
       #    https://docs.mergify.io/conditions/#validating-all-status-checks
       - "check-success=ci/circleci: Check Rust formatting"
-      - "check-success=ci/circleci: Lint Rust Docs"
-      - "check-success=ci/circleci: Lint Rust with clippy"
-      - "check-success=ci/circleci: Rust and Foreign Language tests"
-      - "check-success=ci/circleci: Rust and Foreign Language tests - min supported rust"
       - "#check-pending=0"
       - "#check-stale=0"
       - "#check-failure=0"

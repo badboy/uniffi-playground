@@ -37,14 +37,10 @@ commands:
 jobs:
   Check Rust formatting:
     docker:
-      # Our policy for updating this rust version is at https://github.com/mozilla/uniffi-rs/tree/main/docs/policies/rust-versions.md
-      # See also rust-toolchain.toml in the root of this repo, which is used to ensure the local version of rust matches.
-      - image: rfkelly/uniffi-ci:latest
+      - image: cimg/rust:1.61.0
     resource_class: small
     steps:
       - checkout
-      - prepare-rust-target-version
-      - run: rustup component add rustfmt
       - run: rustfmt --version
       - run: cargo fmt -- --check
   Lint Rust with clippy:
@@ -111,13 +107,3 @@ workflows:
   check-formatting:
     jobs:
       - Check Rust formatting
-  clippy:
-    jobs:
-      - Lint Rust with clippy
-  docs:
-    jobs:
-      - Lint Rust Docs
-  run-tests:
-    jobs:
-      - Rust and Foreign Language tests
-      - Rust and Foreign Language tests - min supported rust
