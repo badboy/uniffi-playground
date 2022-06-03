@@ -4,8 +4,6 @@ queue_rules:
       # Conditions to get out of the queue (= merged)
       - "check-success=ci/circleci: Check Rust formatting"
       - "#check-pending=0"
-      - "#check-stale=0"
-      - "#check-failure=0"
 pull_request_rules:
   - name: Resolve conflict
     conditions:
