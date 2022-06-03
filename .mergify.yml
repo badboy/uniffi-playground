@@ -3,6 +3,8 @@ queue_rules:
     conditions:
       # Conditions to get out of the queue (= merged)
       - "check-success=ci/circleci: Check Rust formatting"
+      - "#check-stale=0"
+      - "#check-failure=0"
 pull_request_rules:
   - name: Resolve conflict
     conditions:
@@ -20,8 +22,8 @@ pull_request_rules:
       #
       #    https://docs.mergify.io/conditions/#validating-all-status-checks
       - "check-success=ci/circleci: Check Rust formatting"
-      - "#check-pending=0"
       - "#check-stale=0"
+      - "#check-failure=0"
     actions:
       # This merges by rebasing without strict merge, which means that mergify will *attempt*
       # to rebase a matching PR directly on to the `main` branch, even if the PR is out of date.
